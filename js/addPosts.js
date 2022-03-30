@@ -1,25 +1,32 @@
+console.log("addPosts");
 const baseUrl = "https://one-more-mca.herokuapp.com/api/posts";
 
-const formEl1 = document.getElementById("form1");
-console.log("formEl1===", formEl1);
+// formos el
+const formEl = document.forms[0];
 
-formEl1.addEventListener("submit", (event) => {
+formEl.addEventListener("submit", (event) => {
   event.preventDefault();
-  console.log("js is in control");
-  // const newPost = {
-  //   title: formEl1.elements.title.value,
-  //   author: formEl1.elements.author.value,
-  //   year: formEl1.elements.year.value,
-  //   body: formEl1.elements.body.value,
-  // };
-  const newPost = {};
-  const members = ["title", "author", "year", "body"];
-  members.forEach((memb) => {
-    newPost[memb] = formEl1.elements[memb].value;
-  });
 
-  // console.log("newPost===", newPost);
-  createPost(newPost);
+  console.log("js is in control");
+
+  // const newPostObj = {
+  //   title: formEl.elements.title.value,
+  //   year: formEl.elements.year.value,
+  //   author: formEl.elements.author.value,
+  //   body: formEl.elements.body.value,
+  // };
+  const newPostObj = {};
+  const members = ["title", "year", "author", "body"];
+  members.forEach((memb) => {
+    newPostObj[memb] = formEl.elements[memb].value;
+  });
+  // const newPostObjTitle = {
+  //   [members[0]]: formEl.elements[members[0]].value,
+  // };
+
+  console.log("newPostObj ===", newPostObj);
+
+  createPost(newPostObj);
 });
 
 async function createPost(newPostData) {
@@ -44,5 +51,5 @@ function handleErrors(errorArr) {
   const errString = errorArr.map((errObj) => `<p>${errObj.message}</p>`).join("");
   const divEl = document.createElement("div");
   divEl.innerHTML = errString;
-  formEl1.before(divEl);
+  formEl.before(divEl);
 }
